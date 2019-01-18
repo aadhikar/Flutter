@@ -9,4 +9,9 @@ void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Exploring UI Widgets",
       home: SimpleInterestForm(),
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        primaryColor: Colors.indigo,
+        accentColor: Colors.indigoAccent,
+      ),
     ));

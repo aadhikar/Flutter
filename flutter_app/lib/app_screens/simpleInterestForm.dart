@@ -16,10 +16,11 @@ class _SimpleInterestForm extends State<SimpleInterestForm> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    TextStyle textStyle = Theme.of(context).textTheme.title;
     return Scaffold(
 //      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
-        title: Text("Simple Interest"),
+        title: Text("Simple Interest Calculator"),
       ),
       body: Container(
         margin: EdgeInsets.all(_minimumPadding * 2),
@@ -31,9 +32,11 @@ class _SimpleInterestForm extends State<SimpleInterestForm> {
                   top: _minimumPadding, bottom: _minimumPadding),
               child: TextField(
                 keyboardType: TextInputType.number,
+                style: textStyle,
                 decoration: InputDecoration(
                     labelText: "Principal",
                     hintText: "Enter te Principal eg. 1000",
+                    labelStyle: textStyle,
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.0))),
               ),
@@ -43,9 +46,11 @@ class _SimpleInterestForm extends State<SimpleInterestForm> {
                   top: _minimumPadding, bottom: _minimumPadding),
               child: TextField(
                 keyboardType: TextInputType.number,
+                style: textStyle,
                 decoration: InputDecoration(
                     labelText: "Rate of Interest",
                     hintText: "Enter in percent",
+                    labelStyle: textStyle,
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.0))),
               ),
@@ -58,9 +63,11 @@ class _SimpleInterestForm extends State<SimpleInterestForm> {
                   Expanded(
                     child: TextField(
                       keyboardType: TextInputType.number,
+                      style: textStyle,
                       decoration: InputDecoration(
                         labelText: "Terms",
                         hintText: "Time in years",
+                        labelStyle: textStyle,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5.0),
                         ),
@@ -75,7 +82,10 @@ class _SimpleInterestForm extends State<SimpleInterestForm> {
                         items: _currencies.map((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Text(value),
+                            child: Text(
+                              value,
+                              style: textStyle,
+                            ),
                           );
                         }).toList(),
                         value: _selectedItem,
@@ -94,26 +104,37 @@ class _SimpleInterestForm extends State<SimpleInterestForm> {
                 children: <Widget>[
                   Expanded(
                     child: RaisedButton(
-                        child: Text("Calculte"),
-                        onPressed: (){
-                      
-                    }),
+                        color: Theme.of(context).accentColor,
+                        textColor: Theme.of(context).primaryColorDark,
+                        child: Text(
+                          "Calculte",
+                          textScaleFactor: 1.5,
+                        ),
+                        onPressed: () {}),
                   ),
                   Container(
                     width: _minimumPadding * 5,
                   ),
                   Expanded(
                     child: RaisedButton(
-                        child: Text("Reset"),
-                        onPressed: (){
-
-                        }),
+                        color: Theme.of(context).primaryColorDark,
+                        textColor: Theme.of(context).primaryColorLight,
+                        child: Text(
+                          "Reset",
+                          textScaleFactor: 1.5,
+                        ),
+                        onPressed: () {}),
                   )
                 ],
               ),
             ),
-            Padding(padding: EdgeInsets.all(_minimumPadding * 2),
-            child: Text("TODO"),)
+            Padding(
+              padding: EdgeInsets.all(_minimumPadding * 2),
+              child: Text(
+                "TODO",
+                style: textStyle,
+              ),
+            )
           ],
         ),
       ),

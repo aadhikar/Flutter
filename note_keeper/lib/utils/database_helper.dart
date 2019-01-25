@@ -5,12 +5,15 @@ import 'package:path_provider/path_provider.dart';
 import 'package:note_keeper/models/note.dart';
 
 class DatabaseHelper {
+//  The singleton pattern is a design pattern that restricts
+// the instantiation of a class to one object.
   static DatabaseHelper _databaseHelper; // Singleton DatabaseHelper
   static Database _database; // Singleton Database
 
 //   Named constructor to create instance of DatabaseHelper
   DatabaseHelper._createInstance();
 
+//  Define all the database COLUMN names along with TABLE name
   String noteTable = "note_table";
   String colId = "id";
   String colTitle = "title";
@@ -18,6 +21,9 @@ class DatabaseHelper {
   String colPriority = "priority";
   String colDate = "date";
 
+//  Use the factory keyword when implementing a constructor that doesn’t always
+// create a new instance of its class.Use the factory keyword when implementing
+// a constructor that doesn’t always create a new instance of its class.
   factory DatabaseHelper() {
     if (_databaseHelper == null) {
 //       This is executed only once, singleton object

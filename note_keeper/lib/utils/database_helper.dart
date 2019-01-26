@@ -76,7 +76,7 @@ class DatabaseHelper {
   }
 
 //  Update Operation: Update a Note object and save it to database
-  Future<int> updatetNote(Note note) async {
+  Future<int> updateNote(Note note) async {
     Database db = await this.database;
     var result = db.update(noteTable, note.toMap(),
         where: '$colId = ?', whereArgs: [note.id]);
@@ -98,5 +98,20 @@ class DatabaseHelper {
         await db.query('SELECT COUNT(*) FROM $noteTable');
     int result = Sqflite.firstIntValue(x);
     return result;
+  }
+
+  // Get the 'Map List' [ List<Map> ] and convert it to 'Note List' [ List<Note> ]
+  Future<List<Note>> getNoteList() async {
+    var noteMapList = await getNoteMapList(); // Get 'Map List' from database
+    int count =
+        noteMapList.length; // Count the number of map entries in db table
+
+    List<Note> noteList = List<Note>();
+    // For loop to create a 'Note List' from a 'Map List'
+    for (int i = 0; i < count; i++) {
+      noteList.add(Note.fromMapObject(noteMapList[i]));
+    }
+
+    return noteList;
   }
 }

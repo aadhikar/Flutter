@@ -17,7 +17,7 @@ class NoteDetail extends StatefulWidget {
 }
 
 class NoteDetailState extends State<NoteDetail> {
-  static var _priorities = ["High", "Low"];
+  static var _priorities = ['High', 'Low'];
 
   DatabaseHelper helper = DatabaseHelper();
 
@@ -48,6 +48,7 @@ class NoteDetailState extends State<NoteDetail> {
             leading: IconButton(
                 icon: Icon(Icons.arrow_back),
                 onPressed: () {
+                  // Write some code to control things, when user press back button in AppBar
                   moveToLastScreen();
                 })),
         body: Padding(
@@ -67,7 +68,7 @@ class NoteDetailState extends State<NoteDetail> {
                   value: getPriorityAsString(note.priority),
                   onChanged: (currentSelectedValue) {
                     setState(() {
-                      debugPrint("dropDownStringMenu");
+                      debugPrint('User selected $currentSelectedValue');
                       updatePriorityAsInt(currentSelectedValue);
                     });
                   },
@@ -81,11 +82,11 @@ class NoteDetailState extends State<NoteDetail> {
                   controller: titleController,
                   style: textStyle,
                   onChanged: (value) {
-                    debugPrint("Title chnged");
+                    debugPrint('Title chnged');
                     updateTitle();
                   },
                   decoration: InputDecoration(
-                    labelText: "Title",
+                    labelText: 'Title',
                     labelStyle: textStyle,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
@@ -101,11 +102,11 @@ class NoteDetailState extends State<NoteDetail> {
                   controller: descriptionController,
                   style: textStyle,
                   onChanged: (value) {
-                    debugPrint("Description chnged");
+                    debugPrint('Description chnged');
                     updateDescription();
                   },
                   decoration: InputDecoration(
-                    labelText: "Description",
+                    labelText: 'Description',
                     labelStyle: textStyle,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
@@ -124,12 +125,14 @@ class NoteDetailState extends State<NoteDetail> {
                         color: Theme.of(context).primaryColorDark,
                         textColor: Theme.of(context).primaryColorLight,
                         child: Text(
-                          "Save",
+                          'Save',
                           textScaleFactor: 1.5,
                         ),
                         onPressed: () {
-                          debugPrint("save");
-                          _save();
+                          setState(() {
+                            debugPrint('Save');
+                            _save();
+                          });
                         },
                       ),
                     ),
@@ -141,12 +144,14 @@ class NoteDetailState extends State<NoteDetail> {
                         color: Theme.of(context).primaryColorDark,
                         textColor: Theme.of(context).primaryColorLight,
                         child: Text(
-                          "Delete",
+                          'Delete',
                           textScaleFactor: 1.5,
                         ),
                         onPressed: () {
-                          debugPrint("Delete");
-                          _delete();
+                          setState(() {
+                            debugPrint('Delete');
+                            _delete();
+                          });
                         },
                       ),
                     )
@@ -181,17 +186,17 @@ class NoteDetailState extends State<NoteDetail> {
     String priority;
     switch (value) {
       case 1:
-        priority = _priorities[0];  // 'High'
+        priority = _priorities[0]; // 'High'
         break;
       case 2:
-        priority = _priorities[1];  // 'Low'
+        priority = _priorities[1]; // 'Low'
         break;
     }
     return priority;
   }
 
   // Update the title of Note object
-  void updateTitle(){
+  void updateTitle() {
     note.title = titleController.text;
   }
 
@@ -202,27 +207,30 @@ class NoteDetailState extends State<NoteDetail> {
 
   // Save data to database
   void _save() async {
-
     moveToLastScreen();
 
     note.date = DateFormat.yMMMd().format(DateTime.now());
     int result;
-    if (note.id != null) {  // Case 1: Update operation
+    if (note.id != null) {
+      // Case 1: Update operation
       result = await helper.updateNote(note);
-    } else { // Case 2: Insert Operation
+    } else {
+      // Case 2: Insert Operation
       result = await helper.insertNote(note);
     }
-
-    if (result != 0) {  // Success
+debugPrint(result.toString());
+    if (result != 0) {
+      // Success
+      debugPrint('Success');
       _showAlertDialog('Status', 'Note Saved Successfully');
-    } else {  // Failure
+    } else {
+      // Failure
+      debugPrint('Failure');
       _showAlertDialog('Status', 'Problem Saving Note');
     }
-
   }
 
   void _delete() async {
-
     moveToLastScreen();
 
     // Case 1: If user is trying to delete the NEW NOTE i.e. he has come to
@@ -241,17 +249,11 @@ class NoteDetailState extends State<NoteDetail> {
     }
   }
 
-
   void _showAlertDialog(String title, String message) {
-
     AlertDialog alertDialog = AlertDialog(
       title: Text(title),
       content: Text(message),
     );
-    showDialog(
-        context: context,
-        builder: (_) => alertDialog
-    );
+    showDialog(context: context, builder: (_) => alertDialog);
   }
-
 }

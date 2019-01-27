@@ -29,16 +29,16 @@ class NoteListState extends State<NoteList> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Notes",
+          'Notes',
         ),
       ),
       body: getNoteListView(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          debugPrint("FloatingActionButton");
+          debugPrint('FloatingActionButton');
           navigateToDetail(Note('', '', 2), 'Add Note');
         },
-        tooltip: "Add note",
+        tooltip: 'Add note',
         child: Icon(Icons.add),
       ),
     );
@@ -74,7 +74,7 @@ class NoteListState extends State<NoteList> {
               },
             ),
             onTap: () {
-              debugPrint("ListTile Tapped");
+              debugPrint('ListTile Tapped');
               navigateToDetail(this.noteList[position], 'Edit Note');
             },
           ),
@@ -127,8 +127,7 @@ class NoteListState extends State<NoteList> {
   }
 
   void navigateToDetail(Note note, String title) async {
-    bool result =
-        await Navigator.push(context, MaterialPageRoute(builder: (context) {
+    bool result = await Navigator.push(context, MaterialPageRoute(builder: (context) {
       return NoteDetail(note, title);
     }));
 

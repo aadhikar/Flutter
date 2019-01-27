@@ -7,8 +7,7 @@ class Note {
 
   Note(this._title, this._date, this._priority, [this._description]);
 
-  Note.withId(this._id, this._title, this._date, this._priority,
-      [this._description]);
+  Note.withId(this._id, this._title, this._date, this._priority, [this._description]);
 
   int get id => _id;
 
@@ -16,18 +15,18 @@ class Note {
 
   String get description => _description;
 
-  String get date => _date;
-
   int get priority => _priority;
 
+  String get date => _date;
+
   set title(String newTitle) {
-    if (newTitle.length > 225) {
+    if (newTitle.length <= 225) {
       this._title = newTitle;
     }
   }
 
   set description(String newDescription) {
-    if (newDescription.length > 225) {
+    if (newDescription.length <= 225) {
       this._description = newDescription;
     }
   }
@@ -45,23 +44,23 @@ class Note {
 //  Convert a Note object into Map object
   Map<String, dynamic> toMap() {
     var map = Map<String, dynamic>();
-
     if (id != null) {
-      map["id"] = _id;
+      map['id'] = _id;
     }
-    map["title"] = _title;
-    map["description"] = _description;
-    map["priority"] = _priority;
-    map["date"] = _date;
+    map['title'] = _title;
+    map['description'] = _description;
+    map['priority'] = _priority;
+    map['date'] = _date;
 
     return map;
   }
 
 //  Extract a Note object from Map object
   Note.fromMapObject(Map<String, dynamic> map) {
-    this._id = map["id"];
-    this._description = map["description"];
-    this._priority = map["priority"];
-    this._date = map["date"];
+    this._id = map['id'];
+    this._title = map['title'];
+    this._description = map['description'];
+    this._priority = map['priority'];
+    this._date = map['date'];
   }
 }
